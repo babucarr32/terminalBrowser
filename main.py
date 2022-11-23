@@ -32,7 +32,7 @@ def terminaleBrowser():
                     print(f"WEBSITE: {j}\n")
                     r = requests.get(str(j))
                     soup = BeautifulSoup(r.text, "lxml")
-                    print(soup.get_text().replace("\n", '')[:300])
+                    print(soup.get_text().replace("\n", '')[:300] + "...")
                     print("\n")
                     print("-----------------------------------------------------------------\n")
                 except Exception as e:
