@@ -8,6 +8,9 @@ except ImportError:
 	print("No module named 'google' found")
 
 def terminaleBrowser():
+    if sys.argv == 0:
+        print(f"Usage: <script>, <arg>, <search>")
+        quit()
     try:
         # to search
         query = str(sys.argv[2])
