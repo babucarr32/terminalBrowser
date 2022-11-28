@@ -4,9 +4,11 @@ try:
     import requests
     from bs4 import BeautifulSoup
     from googlesearch import search
+    import banner
 except ImportError:
 	print("No module named 'google' found")
 
+print(banner.banner)
 def helper():
     print("-----------------------------------")
     print("Example: main.py o www.target.com")
