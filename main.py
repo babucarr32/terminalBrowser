@@ -11,9 +11,9 @@ except ImportError:
 print(banner.banner)
 def helper():
     print("-----------------------------------")
-    print("Example: main.py o www.target.com")
-    print("Example: main.py sV python")
-    print("Example: main.py python")
+    print("Example: main.py raw www.target.com")
+    print("Example: main.py hint python")
+    print("Example: main.py prettify python")
     print("----------------------------------")
     print("""
     Comands:
