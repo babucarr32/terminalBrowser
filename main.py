@@ -5,6 +5,7 @@ try:
     from bs4 import BeautifulSoup
     from googlesearch import search
     import banner
+    import re
 except ImportError:
 	print("No module named 'google' found")
 
@@ -34,7 +35,11 @@ def terminaleBrowser():
     if "raw" in sys.argv:
         r = requests.get(str(sys.argv[2]))
         soup = BeautifulSoup(r.text, "html.parser")
-        print(soup.get_text())
+        soup = soup.get_text()
+        # soup = soup.replace("\n\n", "\n")
+        soup = re.sub(r'\n\s*\n', '\n\n', soup)
+        # print(soup.get_text())
+        print(soup)
 
     elif "prettify" in sys.argv:
         r = requests.get(str(sys.argv[2]))
