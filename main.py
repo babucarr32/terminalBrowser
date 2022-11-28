@@ -20,8 +20,20 @@ def helper():
     Comands:
             raw: Display the text of a site(s).
             hint: Display some info about the site(s).
+            url: Display the url of the site(s).
             prettify: Display the text of a site(s), with prettify.
-
+            pause<int>: Determine pause interval between searches.
+                        E.g: main.py url pause3 python # to pause for
+                        3 seconds, each search.
+            stop<int>: The last result to retrieve. You can set it to 
+                        None to keep searching forever.
+                        E.g: main.py url stop3 python .
+            num<int>: The number of searches we want to retrive.
+                        E.g: main.py url num5 python # to display
+                        10 search results only.
+            tld:<str>: This refers to the top level domain
+                        E.g: main.py url tld:co.in # to search usigng
+                        google.
     """)
 
 
@@ -47,6 +59,7 @@ def terminaleBrowser():
         with open("index.html", "w") as f:
             f.write(soup.prettify())
         # print(soup.prettify())
+
     elif "hint" in sys.argv:
         pass
         print("------------------------------------------------------------")
@@ -64,9 +77,11 @@ def terminaleBrowser():
                 print("-----------------------------------------------------------------\n")
             except Exception as e:
                 continue
+
     elif "--help" in sys.argv:
         helper()
-    else:
+    
+    elif "url" in sys.argv:
         print(True)
         print(True)
         query = str(sys.argv[1])
@@ -77,4 +92,8 @@ def terminaleBrowser():
         for j in search(query, tld="co.in", num=10, stop=20, pause=2):
             print(j)
 
+    else:
+        print(f"Unknown command...")
+        print("Type --help: to show the usage...")
+        quit()
 terminaleBrowser()
