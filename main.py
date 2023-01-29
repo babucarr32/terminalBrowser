@@ -61,15 +61,19 @@ def terminaleBrowser():
         # print(soup.prettify())
 
     elif "hint" in sys.argv:
-        pass
-        print("------------------------------------------------------------")
-        print(f"SEARCH RESULTS FOR: {sys.argv[2]}")
-        print("-----------------------------------------------------------")
-
+        searchCount = 0
         query = str(sys.argv[2])
-        for j in search(query, tld="co.in", num=10, stop=20, pause=3):
+        for arg in sys.argv:
+            if "limit=" in arg:
+                limit = arg.split("=")[1]
+                print("------------------------------------------------------------")
+                print(f"{limit} SEARCH RESULTS FOR: {sys.argv[2]}")
+                print("-----------------------------------------------------------")
+        
+        for j in search(query, tld="co.in", num=10, stop=int(limit), pause=3):
+            searchCount += 1
             try:
-                print(f"WEBSITE: {j}\n")
+                print(f"WEBSITE {searchCount}: {j}\n")
                 r = requests.get(str(j))
                 soup = BeautifulSoup(r.text, "html.parser")
                 print(soup.get_text().replace("\n", '')[:300] + "...")
@@ -82,11 +86,9 @@ def terminaleBrowser():
         helper()
     
     elif "url" in sys.argv:
-        print(True)
-        print(True)
         query = str(sys.argv[2])
-        print(query)
-        
+        searchCount = 0
+
         for arg in sys.argv:
             if "limit=" in arg:
                 limit = arg.split("=")[1]
@@ -95,7 +97,8 @@ def terminaleBrowser():
                 print("-----------------------------------------------------------")
         
         for j in search(query, tld="co.in", num=10, stop=int(limit), pause=2):
-            print(j)
+            searchCount+=1
+            print(f"Website {searchCount}: {j}")
 
     else:
         print(f"Unknown command...")
