@@ -46,7 +46,7 @@ def terminaleBrowser():
     
     if "raw" in sys.argv:
         r = requests.get(str(sys.argv[2]))
-        soup = BeautifulSoup(r.text, "html.parser")
+        soup = BeautifulSoup(r.text, "lxml")
         soup = soup.get_text()
         # soup = soup.replace("\n\n", "\n")
         soup = re.sub(r'\n\s*\n', '\n\n', soup)
@@ -84,12 +84,17 @@ def terminaleBrowser():
     elif "url" in sys.argv:
         print(True)
         print(True)
-        query = str(sys.argv[1])
+        query = str(sys.argv[2])
         print(query)
-        print("------------------------------------------------------------")
-        print(f"SEARCH RESULTS FOR: {sys.argv[1]}")
-        print("-----------------------------------------------------------")
-        for j in search(query, tld="co.in", num=10, stop=20, pause=2):
+        
+        for arg in sys.argv:
+            if "limit=" in arg:
+                limit = arg.split("=")[1]
+                print("------------------------------------------------------------")
+                print(f"{limit} SEARCH RESULTS FOR: {sys.argv[2]}")
+                print("-----------------------------------------------------------")
+        
+        for j in search(query, tld="co.in", num=10, stop=int(limit), pause=2):
             print(j)
 
     else:
