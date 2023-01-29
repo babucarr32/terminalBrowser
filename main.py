@@ -12,28 +12,19 @@ except ImportError:
 print(banner.banner)
 def helper():
     print("-----------------------------------")
-    print("Example: main.py raw www.target.com")
-    print("Example: main.py hint python")
-    print("Example: main.py prettify python")
+    print("Example: main.py raw https://www.python.com")
+    print("Example: main.py hint python limit=20")
+    print("Example: main.py url limit=20 python")
     print("----------------------------------")
     print("""
     Comands:
             raw: Display the text of a site(s).
             hint: Display some info about the site(s).
             url: Display the url of the site(s).
-            prettify: Display the text of a site(s), with prettify.
-            pause<int>: Determine pause interval between searches.
-                        E.g: main.py url pause3 python # to pause for
-                        3 seconds, each search.
-            stop<int>: The last result to retrieve. You can set it to 
-                        None to keep searching forever.
-                        E.g: main.py url stop3 python .
-            num<int>: The number of searches we want to retrive.
-                        E.g: main.py url num5 python # to display
-                        10 search results only.
-            tld:<str>: This refers to the top level domain
-                        E.g: main.py url tld:co.in # to search usigng
-                        google.
+            limit=<int>: The number of searches to retrive.
+                        E.g: main.py url python limit=20
+                        # to display 20 search results only.
+            
     """)
 
 
@@ -48,17 +39,8 @@ def terminaleBrowser():
         r = requests.get(str(sys.argv[2]))
         soup = BeautifulSoup(r.text, "lxml")
         soup = soup.get_text()
-        # soup = soup.replace("\n\n", "\n")
         soup = re.sub(r'\n\s*\n', '\n\n', soup)
-        # print(soup.get_text())
         print(soup)
-
-    elif "prettify" in sys.argv:
-        r = requests.get(str(sys.argv[2]))
-        soup = BeautifulSoup(r.text, "html.parser")
-        with open("index.html", "w") as f:
-            f.write(soup.prettify())
-        # print(soup.prettify())
 
     elif "hint" in sys.argv:
         searchCount = 0
